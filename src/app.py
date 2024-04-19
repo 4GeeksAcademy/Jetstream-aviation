@@ -7,7 +7,7 @@ from flask_cors import CORS, cross_origin
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
-from api.models import db, Countries, States, Nationalities, Roles
+from api.models import db, Countries, States, Nationalities, Roles, Employees
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
@@ -104,6 +104,43 @@ def getRoles():
     roles = Roles.query.all()
     serialized_roles = [role.serialize() for role in roles]
     return jsonify(serialized_roles), 200
+
+#Endpoint for register
+@app.route('/signupEmployee', methods=['POST'])
+def signupUser():
+    body = request.get_json(silent=True)
+    if body is None:
+        return jsonify({'msg': "You can not send empty info"}), 400
+    if 'email' not in body: 
+        return jsonify({'msg': "The email field is mandatory"}), 400
+    if 'password' not in body: 
+        return jsonify({'msg': "You must specify a password"}), 400
+    if 'surname' not in body:
+        return jsonify({'msg': "The surname field is mandatory"}), 400
+    if 'name' not in body:
+        return jsonify({'msg': "The name field is mandatory"}), 400
+    if 'crew_id' not in body: 
+        return jsonify({'msg': "The id field is mandatory"}), 400
+    if 'role_id' not in body: 
+        return jsonify({'msg': "The role field is mandatory"}), 400
+    if 'department_id' not in body: 
+        return jsonify({'msg': "The department field is mandatory"}), 400
+
+    new_employee = Employees()
+    new_employee.email = body['email']
+    new_employee.password = body['password']
+    new_employee.surname = body['surname']
+    new_employee.name = body['name']
+    new_employee.crew_id = body['crew_id']
+    new_employee.gender = body['gender']
+    new_employee.department_id = body['department_id']
+    new_employee.role_id = body['role']
+    db.session.add(new_employee)
+    db.session.commit()
+    return jsonify({'msg': "Employee successfully added to database"}), 200
+    
+    
+    
 
 
 

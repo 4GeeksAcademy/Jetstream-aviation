@@ -32,7 +32,23 @@ export const RegisterUser = (props) => {
             </div>
             <div style={{display: "flex"}}>
                 <InputComponent label="Id" placeholder="Id"/> 
+                <InputComponent label="Username" placeholder="username"/> 
             </div>
+            <div style={{display: "flex"}}>
+                <InputComponent label="e-mail" placeholder="e-mail"/>  
+            </div>
+            <div className="mx-3 my-3" style={{display: "flex", height: "5vh"}}>
+                <span className="input-group-text" id="basic-addon1">Role</span>
+                 <select 
+                     className="form-select form-select-lg mb-3" 
+                     aria-label="Large select example" 
+                     style={{height: "5vh", width:"30vh",fontSize: '1.5vh'}}
+                     > 
+                     <option selected>Male</option>
+                     <option selected>Female</option>
+                     <option selected>Non-Binary</option>
+                 </select>
+            </div> 
             <div className="row">
                 <div className="col-6 mb-3 mx-3" style={{display: "flex", height: '6vh'}}>
                     <span className="input-group-text" id="basic-addon1">Role</span>
@@ -42,10 +58,12 @@ export const RegisterUser = (props) => {
                             style={{height: '6vh', fontSize: '2vh'}}
                             >
                             <option selected>Select a Role</option>
-                           {
+                           { roles != undefined ? 
                                 roles.map((role, index)=> (
                                     <option key={index} value={role.id}>{role.role}</option>
                                 ))
+                                : 
+                                <option></option>
                             } 
                         </select>
                 </div>
