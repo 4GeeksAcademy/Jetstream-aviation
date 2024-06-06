@@ -135,7 +135,7 @@ export const CalendarComponent = (props) => {
                 padding: '0px' ,
                 height:  currentView == 'agenda' ?  '' : '15vh', 
                 width: '20vw', 
-                backgroundColor: props.title.includes('SBY')  ? standbyColor : props.title == 'OFFD' ? dayOffColor : flightColor,
+                backgroundColor: props.title.includes('SBY')  ? standbyColor : props.title == 'FLT' ? flightColor : dayOffColor,
             
             }}>{props.title}</div>
 
@@ -203,7 +203,7 @@ export const CalendarComponent = (props) => {
                                         data-bs-parent="#accordionExample"
                                     >
                                         <div className="accordion-body">
-                                            { event.title == 'FLT' ? 
+                                            { event.title.includes('JET') ? 
                                             <div>
                                                  <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                                  <div>
